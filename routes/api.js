@@ -24,9 +24,15 @@ router.get('/users', (req, res) => {
             
             // Handle error after the release.
             if (error) throw error;
+
+            results.forEach(user => {
+                delete user.fname;
+                delete user.lname;
+                delete user.password;
+            })
             
             // Don't use the connection here, it has been returned to the pool.
-            res.json({results});
+            res.json(results);
         });
     });
     // End pool query.
